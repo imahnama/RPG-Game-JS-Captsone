@@ -1,0 +1,30 @@
+{
+  "name": "RPG-Game-JS-Captsone",
+  "version": "1.0.0",
+  "description": "This project consist on building a video game using JavaScript and the game engine [Phaser](https://phaser.io/).",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imahnama/RPG-Game-JS-Captsone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imahnama/RPG-Game-JS-Captsone/issues"
+  },
+  "homepage": "https://github.com/imahnama/RPG-Game-JS-Captsone#readme",
+  "devDependencies": {
+    "babel-core": "6",
+    "babel-loader": "^7.0.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "phaser": "^3.24.1"
+  }
+}
