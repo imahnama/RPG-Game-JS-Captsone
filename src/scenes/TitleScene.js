@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import UiButton from '../objects/UiButton';
-import config from '../config/config';
+// import Game from GameScene;
+import config from '../Config/config'
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
