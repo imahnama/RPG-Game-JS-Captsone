@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 let SRC = path.resolve(__dirname, 'src/main/js');
 const {
@@ -27,7 +28,15 @@ module.exports = {
     ],
   },
 
+  devServer: {
+    contentBase: path.resolve(__dirname, 'build'),
+  },
+
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      CANVAS_RENDERER: JSON.stringify(true),
+      WEBGL_RENDERER: JSON.stringify(true),
+    }),
   ],
 };
