@@ -13,12 +13,13 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.createAudio();
+    // this.createAudio();
+    this.createMap();
     this.createChests();
-    this.createWalls();
     this.createPlayer();
     this.createInput();
     this.addCollisions();
+
 }
 
 update() {
@@ -62,11 +63,6 @@ spawnChest() {
 
 }
 
-createWalls() {
-  this.wall = this.physics.add.image(500, 100, 'button1');
-  this.wall.setImmovable();
-}
-
 createInput() {
   this.cursors = this.input.keyboard.createCursorKeys();
 }
@@ -89,4 +85,14 @@ collectChest(player, chest) {
   // spawn a new chest
   this.time.delayedCall(1000, this.spawnChest, [], this);
  }
+
+ createMap() {
+   this.map = this.make.tilemap({key: 'map'});
+   this.tiles = this.map.addTilesetImage('background', 'background', 32, 32, 1, 2);
+   this.backgroundLayer = this.map.createStaticLayer('background', this.tiles, 0, 0);
+   this.backgroundLayer.setScale(2);
+   this.blockedLayer = this.map.createStaticLayer('blocked', this.tiles, 0, 0);
+   this.blockedLayer.setScale(2);
+ }
+
 }
