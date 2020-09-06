@@ -31,7 +31,7 @@ update() {
 // }
 
 createPlayer() {
-  this.player = new Player(this, 32, 32, 'characters', 0);
+  this.player = new Player(this, 224, 224, 'characters', 8);
 }
 
 createChests() {
@@ -68,7 +68,7 @@ createInput() {
 }
 
 addCollisions() {
-  this.physics.add.collider(this.player, this.wall);
+  this.physics.add.collider(this.player, this.blockedLayer);
   this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
 
 }
@@ -95,12 +95,13 @@ collectChest(player, chest) {
 
    this.blockedLayer = this.map.createStaticLayer('blocked', this.tiles, 0, 0);
    this.blockedLayer.setScale(2);
+   this.blockedLayer.setCollisionByExclusion([-1]);
 
    this.physics.world.bounds.width = this.map.widthInPixels * 2;
    this.physics.world.bounds.height = this.map.heightInPixels * 2;
 
    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
-   
+
  }
 
 }
