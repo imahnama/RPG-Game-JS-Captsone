@@ -25,7 +25,6 @@ export default class Spawner {
   }
 
   spawnObject() {
-    console.log('spawning Object');
     if (this.objectType === SpawnerType.CHEST) {
       this.spawnChest();
     }
