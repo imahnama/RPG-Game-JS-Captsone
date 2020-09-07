@@ -4,6 +4,7 @@ import Chest from '../classes/Chest';
 import Monster from '../classes/Monster';
 import Map from '../classes/Map';
 import GameManager from '../gameManager/GameManager';
+import goldSound from '../../assets/audio/Pickup.wav';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -16,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    // this.createAudio();
+    this.createAudio();
     this.createMap();
     this.createGroups();
     this.createInput();
@@ -27,9 +28,9 @@ update() {
   this.player.update(this.cursors);
 }
 
-// createAudio() {
-//   this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2});
-// }
+createAudio() {
+ this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2});
+}
 
 createPlayer(location) {
   this.player = new Player(this, location[0] * 2, location[1] * 2, 'characters', 19);
@@ -92,13 +93,13 @@ addCollisions() {
 }
 
 collectChest(player, chest) {
-  // play gold souns
-  // this.goldPickupAudio.play();
-  //update our score
+
+  this.goldPickupAudio.play();
+
   this.score += chest.coins;
-  // update score in the ui
+
   this.events.emit('updateScore', this.score);
-  // make chest game object interactive
+
   chest.makeInactive();
 
   this.events.emit('pickUpChest', chest.id);

@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import items from '../../assets/images/items.png';
 import characters from '../../assets/images/characters.png';
 import monsters from '../../assets/images/monsters.png';
-// import goldSound from '../../assets/audio/Pickup.wav';
+import goldSound from '../../assets/audio/Pickup.wav';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -16,7 +16,7 @@ export default class BootScene extends Phaser.Scene {
     // load spritesheet
     this.loadSpriteSheets();
     //load audio
-    // this.loadAudio();
+    this.loadAudio();
     // load Tilemap
     this.loadTileMap()
   }
@@ -32,9 +32,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.spritesheet('monsters', '../assets/images/monsters.png', {frameWidth: 32, frameHeight: 32});
   }
 
-  // loadAudio() {
-  //   this.load.audio('goldSound', ['../assets/audio/Pickup.wav']);
-  // }
+  loadAudio() {
+   this.load.audio('goldSound', ['../assets/audio/Pickup.wav']);
+   }
 
   loadTileMap() {
     this.load.tilemapTiledJSON('map', '../assets/level/large_level.json')

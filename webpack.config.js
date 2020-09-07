@@ -21,9 +21,8 @@ module.exports = {
         ],
       },
       {
-      test: /\.mp3$/,
-      include: SRC,
-      loader: 'file-loader'
+        test: /\.(mp3|ogg|wav)$/,
+          loader: 'file-loader',
     },
     ],
   },
