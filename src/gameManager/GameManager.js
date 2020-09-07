@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Spawner from './Spawner';
+import { SpawnerType } from './utils';
 
 export default class GameManager {
   constructor(scene, mapData) {
@@ -56,7 +57,7 @@ export default class GameManager {
       const config = {
         spawnInterval: 3000,
         limit: 3,
-        spawnerType: 'CHEST',
+        spawnerType: SpawnerType.CHEST,
         id: `chest-${key}`,
       };
 
@@ -76,14 +77,13 @@ export default class GameManager {
     this.scene.events.emit('spawnPlayer', location);
   }
 
-  addChest(id, chest) {
-    this.chests[id] = chest;
-   console.log(chest)
-
+  addChest(chestId, chest) {
+    this.chests[chestId] = chest;
 
  }
 
-   deleteChest() {
+   deleteChest(chestId) {
+     delete this.chests[chestId];
 
  }
 }

@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import ChestModel from './ChestModel';
+import { SpawnerType, randomNumber } from './utils';
 
 export default class Spawner {
   constructor(config, spawnLocations, addObject, deleteObject) {
@@ -25,14 +26,14 @@ export default class Spawner {
 
   spawnObject() {
     console.log('spawning Object');
-    if (this.objectType === 'CHEST') {
+    if (this.objectType === SpawnerType.CHEST) {
       this.spawnChest();
     }
   }
 
   spawnChest() {
     const location = this.pickRandomLocation();
-    const chest = new ChestModel(location[0], location[1], 10, this.id);
+    const chest = new ChestModel(location[0], location[1], randomNumber(10, 20), this.id);
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);
 
@@ -50,5 +51,10 @@ export default class Spawner {
     if (invalidLocation) return this.pickRandomLocation();
     return location;
 
+  }
+
+  removeObject(id) {
+    this.objectsCreated = this.objectsCreated.filter(obj => obj.id !== id);
+    this.deleteObject(id);
   }
 }
