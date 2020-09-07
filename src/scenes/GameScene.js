@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import Player from '../classes/Player';
 import Chest from '../classes/Chest';
+import Map from '../classes/Map';
+import GameManager from '../gameManager/GameManager';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -16,10 +18,8 @@ export default class GameScene extends Phaser.Scene {
     // this.createAudio();
     this.createMap();
     this.createChests();
-    this.createPlayer();
     this.createInput();
-    this.addCollisions();
-
+    this.createGameManager();
 }
 
 update() {
@@ -30,8 +30,8 @@ update() {
 //   this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2});
 // }
 
-createPlayer() {
-  this.player = new Player(this, 224, 224, 'characters', 8);
+createPlayer(location) {
+  this.player = new Player(this, location[0] * 2, location[1] * 2, 'characters', 19);
 }
 
 createChests() {
@@ -68,7 +68,7 @@ createInput() {
 }
 
 addCollisions() {
-  this.physics.add.collider(this.player, this.blockedLayer);
+  this.physics.add.collider(this.player, this.map.blockedLayer);
   this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
 
 }
@@ -87,21 +87,17 @@ collectChest(player, chest) {
  }
 
  createMap() {
-   this.map = this.make.tilemap({key: 'map'});
-   this.tiles = this.map.addTilesetImage('background', 'background', 32, 32, 1, 2);
+   this.map = new Map(this, 'map', 'background', 'background', 'blocked');
+ }
 
-   this.backgroundLayer = this.map.createStaticLayer('background', this.tiles, 0, 0);
-   this.backgroundLayer.setScale(2);
+ createGameManager() {
+   this.events.on('spawnPlayer', (location) => {
+   this.createPlayer(location);
+   this.addCollisions();
+ });
 
-   this.blockedLayer = this.map.createStaticLayer('blocked', this.tiles, 0, 0);
-   this.blockedLayer.setScale(2);
-   this.blockedLayer.setCollisionByExclusion([-1]);
-
-   this.physics.world.bounds.width = this.map.widthInPixels * 2;
-   this.physics.world.bounds.height = this.map.heightInPixels * 2;
-
-   this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
-
+ this.gameManager = new GameManager(this, this.map.map.objects);
+ this.gameManager.setup();
  }
 
 }
