@@ -35,7 +35,12 @@ export default class Spawner {
 
   spawnChest() {
     const location = this.pickRandomLocation();
-    const chest = new ChestModel(location[0], location[1], randomNumber(10, 20), this.id);
+    const chest = new ChestModel(
+      location[0],
+      location[1],
+      randomNumber(10, 20),
+      this.id,
+    );
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);
 
@@ -49,7 +54,7 @@ export default class Spawner {
       this.id,
       randomNumber(0, 20),
       randomNumber(3, 5),
-      1,
+       1,
     );
     this.objectsCreated.push(monster);
     this.addObject(monster.id, monster);

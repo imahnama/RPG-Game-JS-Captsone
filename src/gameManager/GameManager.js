@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import Spawner from './Spawner';
 import { SpawnerType } from './utils';
+import Monster from '../classes/Monster';
+import MonsterModel from './MonsterModel';
 
 export default class GameManager {
   constructor(scene, mapData) {
@@ -55,6 +57,13 @@ export default class GameManager {
       if (this.chests[chestId]) {
 
         this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
+      }
+    });
+
+    this.scene.events.on('destroyEnemy', (monsterId) => {
+
+      if (this.monsters[monsterId]) {
+        this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
       }
     });
   }
