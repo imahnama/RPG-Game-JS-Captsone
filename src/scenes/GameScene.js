@@ -2,7 +2,9 @@ import Phaser from 'phaser';
 import PlayerContainer from '../classes/player/PlayerContainer';
 import Chest from '../classes/Chest';
 import Monster from '../classes/Monster';
+import { SpawnerType, randomNumber } from '../gameManager/utils';
 import MonsterModel from '../gameManager/MonsterModel';
+import PlayerModel from '../gameManager/PlayerModel';
 import Map from '../classes/Map';
 import GameManager from '../gameManager/GameManager';
 import goldSound from '../../assets/audio/Pickup.wav';
@@ -15,120 +17,127 @@ export default class GameScene extends Phaser.Scene {
 
   init() {
     this.scene.launch('Ui');
-    this.score = 0;
   }
 
   create() {
-    this.createAudio();
     this.createMap();
+    this.createAudio();
     this.createGroups();
     this.createInput();
+
     this.createGameManager();
-}
+  }
 
-update() {
-  this.player.update(this.cursors);
-}
+  update() {
+    if (this.player) this.player.update(this.cursors);
+  }
 
-createAudio() {
- this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2});
-}
+  createAudio() {
+    this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.3 });
+    this.playerAttackAudio = this.sound.add('playerAttack', { loop: false, volume: 0.01 });
+    this.playerDamageAudio = this.sound.add('playerDamage', { loop: false, volume: 0.2 });
+    this.playerDeathAudio = this.sound.add('playerDeath', { loop: false, volume: 0.2 });
+    this.monsterDeathAudio = this.sound.add('enemyDeath', { loop: false, volume: 0.2 });
+  }
 
-createPlayer(location) {
-  this.player = new PlayerContainer(this, location[0] * 2, location[1] * 2, 'characters', 0);
-}
-
-createGroups() {
-  this.chests = this.physics.add.group();
-  this.monsters = this.physics.add.group();
-}
-
-spawnChest(chestObject) {
-
-  let chest = this.chests.getFirstDead();
-  if (!chest) {
-   chest = new Chest(
-     this,
-     chestObject.x * 2,
-      chestObject.y * 2,
-      'items',   0,
-      chestObject.gold,
-      chestObject.id,
+  createPlayer(playerObject) {
+    this.player = new PlayerContainer(
+      this,
+      playerObject.x * 2,
+      playerObject.y * 2,
+      'characters',
+      0,
+      playerObject.health,
+      playerObject.maxHealth,
+      playerObject.id,
+      this.playerAttackAudio,
     );
-    this.chests.add(chest);
-  } else {
-    chest.coins = chestObject.gold;
-    chest.id = chestObject.id;
-    chest.setPosition( chestObject.x * 2, chestObject.y * 2);
-    chest.makeActive();
   }
 
-}
-
-spawnMonster(monsterObject) {
-  let monster = this.monsters.getFirstDead();
-  if (!monster) {
-     monster = new Monster(
-       this,
-      monsterObject.x * 2,
-      monsterObject.y * 2,
-      'monsters',
-      monsterObject.frame,
-      monsterObject.id,
-      monsterObject.health,
-      monsterObject.maxHealth,
-    );
-
-    this.monsters.add(monster);
-    monster.setCollideWorldBounds(true);
-  } else {
-    monster.id = monsterObject.id;
-    monster.health = monsterObject.health;
-    monster.maxhealth = monsterObject.maxhealth;
-    monster.setTexture('monsters', monsterObject.frame);
-    monster.setPosition( monsterObject.x * 2, monsterObject.y * 2);
-    monster.makeActive();
+  createGroups() {
+    // create a chest group
+    this.chests = this.physics.add.group();
+    // create a monster group
+    this.monsters = this.physics.add.group();
+    this.monsters.runChildUpdate = true;
   }
-}
 
-createInput() {
-  this.cursors = this.input.keyboard.createCursorKeys();
-}
-
-addCollisions() {
-  this.physics.add.collider(this.player, this.map.blockedLayer);
-  this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
-  this.physics.add.collider(this.monsters, this.map.blockedLayer);
-  this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
-}
-
-enemyOverlap(player, enemy) {
-  if (this.player.playerAttacking && !this.player.swordHit) {
-    this.player.swordHit = true;
-    this.events.emit('monsterAttacked', enemy.id);
+  spawnChest(chestObject) {
+    let chest = this.chests.getFirstDead();
+    if (!chest) {
+      chest = new Chest(this, chestObject.x * 2, chestObject.y * 2, 'items', 0, chestObject.gold, chestObject.id);
+      // add chest to chests group
+      this.chests.add(chest);
+    } else {
+      chest.coins = chestObject.gold;
+      chest.id = chestObject.id;
+      chest.setPosition(chestObject.x * 2, chestObject.y * 2);
+      chest.makeActive();
+    }
   }
-}
 
-collectChest(player, chest) {
+  spawnMonster(monsterObject) {
+    let monster = this.monsters.getFirstDead();
+    if (!monster) {
+      monster = new Monster(
+        this,
+        monsterObject.x,
+        monsterObject.y,
+        'monsters',
+        monsterObject.frame,
+        monsterObject.id,
+        monsterObject.health,
+        monsterObject.maxHealth,
+      );
+      // add monster to monsters group
+      this.monsters.add(monster);
+      monster.setCollideWorldBounds(true);
+    } else {
+      monster.id = monsterObject.id;
+      monster.health = monsterObject.health;
+      monster.maxHealth = monsterObject.maxHealth;
+      monster.setTexture('monsters', monsterObject.frame);
+      monster.setPosition(monsterObject.x, monsterObject.y);
+      monster.makeActive();
+    }
+  }
 
-  this.goldPickupAudio.play();
+  createInput() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
 
-  this.score += chest.coins;
+  addCollisions() {
+    // check for collisions between the player and the tiled blocked layer
+    this.physics.add.collider(this.player, this.map.blockedLayer);
+    // check for overlaps between player and chest game objects
+    this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    // check for collisions between the monster group and the tiled blocked layer
+    this.physics.add.collider(this.monsters, this.map.blockedLayer);
+    // check for overlaps between the player's weapon and monster game objects
+    this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
+  }
 
-  this.events.emit('updateScore', this.score);
+  enemyOverlap(weapon, enemy) {
+    if (this.player.playerAttacking && !this.player.swordHit) {
+      this.player.swordHit = true;
+      this.events.emit('monsterAttacked', enemy.id, this.player.id);
+    }
+  }
 
-  chest.makeInactive();
+  collectChest(player, chest) {
+    // play gold pickup sound
+    this.goldPickupAudio.play();
+    this.events.emit('pickUpChest', chest.id, player.id);
+  }
 
-  this.events.emit('pickUpChest', chest.id);
- }
+  createMap() {
+    // create map
+    this.map = new Map(this, 'map', 'background', 'background', 'blocked');
+  }
 
- createMap() {
-   this.map = new Map(this, 'map', 'background', 'background', 'blocked');
- }
-
- createGameManager() {
-    this.events.on('spawnPlayer', (location) => {
-      this.createPlayer(location);
+  createGameManager() {
+    this.events.on('spawnPlayer', (playerObject) => {
+      this.createPlayer(playerObject);
       this.addCollisions();
     });
 
@@ -140,10 +149,19 @@ collectChest(player, chest) {
       this.spawnMonster(monster);
     });
 
+    this.events.on('chestRemoved', (chestId) => {
+      this.chests.getChildren().forEach((chest) => {
+        if (chest.id === chestId) {
+          chest.makeInactive();
+        }
+      });
+    });
+
     this.events.on('monsterRemoved', (monsterId) => {
       this.monsters.getChildren().forEach((monster) => {
         if (monster.id === monsterId) {
           monster.makeInactive();
+          this.monsterDeathAudio.play();
         }
       });
     });
@@ -155,5 +173,30 @@ collectChest(player, chest) {
         }
       });
     });
-}
+
+    this.events.on('monsterMovement', (monsters) => {
+      this.monsters.getChildren().forEach((monster) => {
+        Object.keys(monsters).forEach((monsterId) => {
+          if (monster.id === monsterId) {
+            this.physics.moveToObject(monster, monsters[monsterId], 40);
+          }
+        });
+      });
+    });
+
+    this.events.on('updatePlayerHealth', (playerId, health) => {
+      if (health < this.player.health) {
+        this.playerDamageAudio.play();
+      }
+      this.player.updateHealth(health);
+    });
+
+    this.events.on('respawnPlayer', (playerObject) => {
+      this.playerDeathAudio.play();
+      this.player.respawn(playerObject);
+    });
+
+    this.gameManager = new GameManager(this, this.map.map.objects);
+    this.gameManager.setup();
+  }
 }
