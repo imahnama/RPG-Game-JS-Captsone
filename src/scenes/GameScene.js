@@ -7,6 +7,7 @@ import MonsterModel from '../gameManager/MonsterModel';
 import PlayerModel from '../gameManager/PlayerModel';
 import Map from '../classes/Map';
 import GameManager from '../gameManager/GameManager';
+import TitleScene from './TitleScene';
 import goldSound from '../../assets/audio/Pickup.wav';
 import monsters from '../../assets/images/monsters.png';
 
@@ -192,8 +193,10 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.events.on('respawnPlayer', (playerObject) => {
+
       this.playerDeathAudio.play();
-      this.player.respawn(playerObject);
+      this.scene.switch('GameOver');
+      this.scene.stop('Ui');
     });
 
     this.gameManager = new GameManager(this, this.map.map.objects);

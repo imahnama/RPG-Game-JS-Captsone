@@ -55,57 +55,52 @@ parseMapData() {
 
 setupEventListener() {
   this.scene.events.on('pickUpChest', (chestId, playerId) => {
-    // update the spawner
+
     if (this.chests[chestId]) {
       const { gold } = this.chests[chestId];
 
-      // updating the players gold
+
       this.players[playerId].updateGold(gold);
       this.scene.events.emit('updateScore', this.players[playerId].gold);
 
-      // removing the chest
+
       this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
       this.scene.events.emit('chestRemoved', chestId);
     }
   });
 
   this.scene.events.on('monsterAttacked', (monsterId, playerId) => {
-    // update the spawner
+
     if (this.monsters[monsterId]) {
       const { gold, attack } = this.monsters[monsterId];
 
-      // subtract health monster model
+
       this.monsters[monsterId].loseHealth();
 
-      // check the monsters health, and if dead remove that object
+
       if (this.monsters[monsterId].health <= 0) {
-        // updating the players gold
+
         this.players[playerId].updateGold(gold);
         this.scene.events.emit('updateScore', this.players[playerId].gold);
 
-        // removing the monster
+
         this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
         this.scene.events.emit('monsterRemoved', monsterId);
 
-        // add bonus health to the player
+
         this.players[playerId].updateHealth(2);
         this.scene.events.emit('updatePlayerHealth', playerId, this.players[playerId].health);
       } else {
-        // update the players health
+
         this.players[playerId].updateHealth(-attack);
         this.scene.events.emit('updatePlayerHealth', playerId, this.players[playerId].health);
 
-        // update the monsters health
+
         this.scene.events.emit('updateMonsterHealth', monsterId, this.monsters[monsterId].health);
 
-        // check the player's health, if below 0 have the player respawn
-        if (this.players[playerId].health <= 0) {
-          // update the gold the player has
-          this.players[playerId].updateGold(parseInt(-this.players[playerId].gold / 2), 10);
-          this.scene.events.emit('updateScore', this.players[playerId].gold);
 
-          // respawn the player
-          this.players[playerId].respawn();
+        if (this.players[playerId].health <= 0) {
+
           this.scene.events.emit('respawnPlayer', this.players[playerId]);
         }
       }
@@ -122,7 +117,7 @@ setupSpawners() {
   };
   let spawner;
 
-  // create chest spawners
+
   Object.keys(this.chestLocations).forEach((key) => {
     config.id = `chest-${key}`;
 
@@ -135,7 +130,7 @@ setupSpawners() {
     this.spawners[spawner.id] = spawner;
   });
 
-  // create monster spawners
+
   Object.keys(this.monsterLocations).forEach((key) => {
     config.id = `monster-${key}`;
     config.spawnerType = SpawnerType.MONSTER;
