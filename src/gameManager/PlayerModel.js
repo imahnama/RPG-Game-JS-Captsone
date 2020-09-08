@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import GameOverScene from '../scenes/GameOverScene'
 import { v4 as uuidv4 } from 'uuid';
 
 export default class PlayerModel {
@@ -15,6 +16,8 @@ export default class PlayerModel {
 
   updateGold(gold) {
     this.gold += gold;
+    let gameOverSceneInstance = new GameOverScene();
+    gameOverSceneInstance.getGold(this.gold)
   }
 
   updateHealth(health) {

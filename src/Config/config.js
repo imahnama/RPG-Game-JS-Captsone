@@ -4,6 +4,7 @@ import BootScene from '../scenes/BootScene';
 import Preloader from '../scenes/PreloaderScene';
 import TitleScene from '../scenes/TitleScene';
 import GameOverScene from '../scenes/GameOverScene';
+import LeaderboardScene from '../scenes/LeaderboardScene';
 import UiScene from '../scenes/UiScene';
 
 export default {
