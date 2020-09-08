@@ -52,28 +52,31 @@ export default class GameManager {
  }
 
  setupEventListener() {
-   this.scene.events.on('pickUpChest', (chestId, playerId) => {
-    
-     if (this.chests[chestId]) {
+    this.scene.events.on('pickUpChest', (chestId) => {
 
-       this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
-     }
-   });
+      if (this.chests[chestId]) {
+        this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
+      }
+    });
 
-   this.scene.events.on('monsterAttacked', (monsterId, playerId) => {
+    this.scene.events.on('monsterAttacked', (monsterId) => {
 
-     if (this.monsters[monsterId]) {
+      if (this.monsters[monsterId]) {
 
-       this.monsters[monsterId].loseHealth();
+        this.monsters[monsterId].loseHealth();
 
 
-       if (this.monsters[monsterId].health <= 0) {
+        if (this.monsters[monsterId].health <= 0) {
 
-         this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
-         this.scene.events.emit('monsterRemoved', monsterId);
-       }
-     }
-   });
+          this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
+          this.scene.events.emit('monsterRemoved', monsterId);
+        } else {
+          
+          this.scene.events.emit('updateMonsterHealth', monsterId, this.monsters[monsterId].health);
+        }
+      }
+    });
+}
 }
 
   setupSpawners() {

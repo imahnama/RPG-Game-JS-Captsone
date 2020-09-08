@@ -127,8 +127,8 @@ collectChest(player, chest) {
  }
 
  createGameManager() {
-    this.events.on('spawnPlayer', (playerObject) => {
-      this.createPlayer(playerObject);
+    this.events.on('spawnPlayer', (location) => {
+      this.createPlayer(location);
       this.addCollisions();
     });
 
@@ -139,7 +139,7 @@ collectChest(player, chest) {
     this.events.on('monsterSpawned', (monster) => {
       this.spawnMonster(monster);
     });
- 
+
     this.events.on('monsterRemoved', (monsterId) => {
       this.monsters.getChildren().forEach((monster) => {
         if (monster.id === monsterId) {
@@ -148,7 +148,12 @@ collectChest(player, chest) {
       });
     });
 
-    this.gameManager = new GameManager(this, this.map.map.objects);
-    this.gameManager.setup();
+    this.events.on('updateMonsterHealth', (monsterId, health) => {
+      this.monsters.getChildren().forEach((monster) => {
+        if (monster.id === monsterId) {
+          monster.updateHealth(health);
+        }
+      });
+    });
 }
 }
