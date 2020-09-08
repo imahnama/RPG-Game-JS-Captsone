@@ -35,7 +35,7 @@ createAudio() {
 }
 
 createPlayer(location) {
-  this.player = new PlayerContainer(this, location[0] * 2, location[1] * 2, 'characters', 19);
+  this.player = new PlayerContainer(this, location[0] * 2, location[1] * 2, 'characters', 0);
 }
 
 createGroups() {
@@ -103,8 +103,10 @@ addCollisions() {
 }
 
 enemyOverlap(player, enemy) {
-   enemy.makeInactive();
-   this.events.emit('destroyEnemy', enemy.id);
+  if (this.player.playerAttacking && !this.player.swordHit) {
+    this.player.swordHit = true;
+    this.events.emit('monsterAttacked', enemy.id);
+  }
 }
 
 collectChest(player, chest) {
@@ -125,21 +127,28 @@ collectChest(player, chest) {
  }
 
  createGameManager() {
-   this.events.on('spawnPlayer', (location) => {
-   this.createPlayer(location);
-   this.addCollisions();
- });
+    this.events.on('spawnPlayer', (playerObject) => {
+      this.createPlayer(playerObject);
+      this.addCollisions();
+    });
 
- this.events.on('chestSpawned', (chest) => {
- this.spawnChest(chest);
-});
+    this.events.on('chestSpawned', (chest) => {
+      this.spawnChest(chest);
+    });
 
-this.events.on('monsterSpawned', (monster) => {
-this.spawnMonster(monster);
-});
+    this.events.on('monsterSpawned', (monster) => {
+      this.spawnMonster(monster);
+    });
+ 
+    this.events.on('monsterRemoved', (monsterId) => {
+      this.monsters.getChildren().forEach((monster) => {
+        if (monster.id === monsterId) {
+          monster.makeInactive();
+        }
+      });
+    });
 
- this.gameManager = new GameManager(this, this.map.map.objects);
- this.gameManager.setup();
- }
-
+    this.gameManager = new GameManager(this, this.map.map.objects);
+    this.gameManager.setup();
+}
 }

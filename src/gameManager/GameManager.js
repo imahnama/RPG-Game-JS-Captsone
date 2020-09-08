@@ -51,22 +51,30 @@ export default class GameManager {
     });
  }
 
-  setupEventListener() {
-    this.scene.events.on('pickUpChest', (chestId) => {
+ setupEventListener() {
+   this.scene.events.on('pickUpChest', (chestId, playerId) => {
+    
+     if (this.chests[chestId]) {
 
-      if (this.chests[chestId]) {
+       this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
+     }
+   });
 
-        this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
-      }
-    });
+   this.scene.events.on('monsterAttacked', (monsterId, playerId) => {
 
-    this.scene.events.on('destroyEnemy', (monsterId) => {
+     if (this.monsters[monsterId]) {
 
-      if (this.monsters[monsterId]) {
-        this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
-      }
-    });
-  }
+       this.monsters[monsterId].loseHealth();
+
+
+       if (this.monsters[monsterId].health <= 0) {
+
+         this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
+         this.scene.events.emit('monsterRemoved', monsterId);
+       }
+     }
+   });
+}
 
   setupSpawners() {
     const config = {

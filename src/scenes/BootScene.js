@@ -11,13 +11,13 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    // load images
+
    this.loadImages();
-    // load spritesheet
+
     this.loadSpriteSheets();
-    //load audio
+
     this.loadAudio();
-    // load Tilemap
+
     this.loadTileMap()
   }
   loadImages() {
