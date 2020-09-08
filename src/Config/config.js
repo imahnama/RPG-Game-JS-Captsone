@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import GameScene from '../scenes/GameScene';
 import BootScene from '../scenes/BootScene';
+import Preloader from '../scenes/PreloaderScene';
 import TitleScene from '../scenes/TitleScene';
 import UiScene from '../scenes/UiScene';
 
@@ -10,6 +11,7 @@ var config = {
   height: 600,
   scene: [
     BootScene,
+    Preloader,
     TitleScene,
     GameScene,
     UiScene,
