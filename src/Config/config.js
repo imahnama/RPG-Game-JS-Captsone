@@ -3,23 +3,18 @@ import GameScene from '../scenes/GameScene';
 import BootScene from '../scenes/BootScene';
 import Preloader from '../scenes/PreloaderScene';
 import TitleScene from '../scenes/TitleScene';
+import GameOverScene from '../scenes/GameOverScene';
 import UiScene from '../scenes/UiScene';
 
-var config = {
+export default {
   type: Phaser.AUTO,
-  width: 800,
+  parent: 'phaser-example',
+  width: 900,
   height: 600,
-  scene: [
-    BootScene,
-    Preloader,
-    TitleScene,
-    GameScene,
-    UiScene,
-  ],
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: false,
       gravity: {
         y: 0,
       },
@@ -27,6 +22,7 @@ var config = {
   },
   pixelArt: true,
   roundPixels: true,
+  dom: {
+    createContainer: true,
+  },
 };
-
-var game = new Phaser.Game(config);
