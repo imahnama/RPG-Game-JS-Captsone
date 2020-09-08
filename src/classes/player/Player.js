@@ -14,7 +14,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.scene.add.existing(this);
 
-
   }
 
 }
