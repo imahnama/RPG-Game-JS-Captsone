@@ -58,9 +58,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createGroups() {
-    // create a chest group
+
     this.chests = this.physics.add.group();
-    // create a monster group
+
     this.monsters = this.physics.add.group();
     this.monsters.runChildUpdate = true;
   }
@@ -69,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
     let chest = this.chests.getFirstDead();
     if (!chest) {
       chest = new Chest(this, chestObject.x * 2, chestObject.y * 2, 'items', 0, chestObject.gold, chestObject.id);
-      // add chest to chests group
+
       this.chests.add(chest);
     } else {
       chest.coins = chestObject.gold;
