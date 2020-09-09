@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const {
-  CleanWebpackPlugin
+  CleanWebpackPlugin,
 } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.(mp3|ogg|wav)$/,
         loader: 'file-loader',
-     },
+      },
     ],
   },
 
