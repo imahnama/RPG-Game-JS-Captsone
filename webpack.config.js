@@ -1,7 +1,5 @@
-
 const webpack = require('webpack');
 const path = require('path');
-const SRC = path.resolve(__dirname, 'src/main/js');
 const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin');
