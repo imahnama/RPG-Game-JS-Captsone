@@ -35,7 +35,7 @@ This project consist on building a video game using JavaScript and the game engi
 - The warrior must be quick to fight the monsters so that he doesn't lose his healthbar.
 - The game is over if the warrior healthbar is empty.
 - If the game over it takes you to screen where you can add your scores to the leaderboard click on the button submit to add your name to the leaderboard.
-- [Play online here]( )
+- [Play online here](https://zealous-saha-0eed95.netlify.app/)
 
 ## Future Features
 - Add mobile friendliness.
@@ -52,10 +52,6 @@ This project consist on building a video game using JavaScript and the game engi
 - Es6
 - Netlify
 - Jest
-
-## Live Demo
-
-[Live Demo Link]( )
 
 ## How to Install
 
