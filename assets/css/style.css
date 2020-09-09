@@ -1,0 +1,15 @@
+#phaser-game {
+  position: relative
+}
+
+#phaser {
+  position: absolute;
+  top: 280px;
+  left: 300px;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.hide-div {
+  display: none;
+}
