@@ -20,6 +20,7 @@ export default class GameOverScene extends Phaser.Scene {
 
     const divContent = document.createElement('div');
     divContent.setAttribute('id', 'phaser');
+    divContent.setAttribute('class', 'hide-div');
 
     const inputName = document.createElement('input');
     inputName.setAttribute('id', 'user-name');
@@ -45,27 +46,11 @@ export default class GameOverScene extends Phaser.Scene {
     divContent.appendChild(leaderBtn);
 
     leaderBtn.addEventListener('click', () => {
-      this.scene.start('Leader')
+      this.scene.switch('Leader')
+      // this.scene.switch('GameOver');
+      this.scene.stop('GameOver');
     })
 
-
-
-    // submitBtn.on('pointerup', () => {
-    //   console.log(result)
-    // });
 }
-
-// async getName(value) {
-//  this.name = document.getElementById('user-name').value;
-//  if (this.name.length < 13 && this.name.length > 1) {
-//    await fetchData.saveScore(this.name, window.score);
-//    this.callLeaderBoard();
-//  }
-// }
-//
-// callLeaderBoard() {
-//  document.getElementById('user-name').remove();
-//  this.scene.start('Leader');
-// }
 
 }

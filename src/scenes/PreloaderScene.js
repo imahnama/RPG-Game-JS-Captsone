@@ -11,7 +11,7 @@ export default class PreloaderScene extends Phaser.Scene {
  }
 
  preload() {
-   this.add.image(400, 200, 'logo');
+
    const progressBar = this.add.graphics();
    const progressBox = this.add.graphics();
    progressBox.fillStyle(0x222222, 0.8);
@@ -76,7 +76,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
    this.load.image('button1', '../assets/images/ui/blue_button01.png');
    this.load.image('button2', '../assets/images/ui/blue_button03.png');
-   this.load.image('phaserLogo', '../assets/images/logo.png');
+   
 
  }
 

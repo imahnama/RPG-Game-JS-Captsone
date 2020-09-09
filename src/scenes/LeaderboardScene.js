@@ -28,7 +28,7 @@ export default class LeaderboardScene extends Phaser.Scene {
    console.log(info)
    let spaceY = 0;
    // this.loading.text = '';
-   for (let i = 0; i <= info.length; i += 1) {
+   for (let i = 0; i <= info.length - 1; i += 1) {
      this.add.text(340, 240 + spaceY, `${i + 1}.`, { fontSize: 20 });
      this.add.text(375, 240 + spaceY, `${info[i].user}`, { fontSize: 20 });
      this.add.text(510, 240 + spaceY, `${info[i].score}`, { fontSize: 20 });

@@ -9,12 +9,17 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
 
-    this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Monster Attack', { fontSize: '64px', fill: '#fff'});
-    this.titleText.setOrigin(0.5);
+  this.titleText = this.add.text(200, 100, 'Monster Attack', { fontSize: '54px', fill: '#fff'})
 
-    this.startGameButton = new UiButton(this, this.scale.width /2, this.scale.height * 0.65, 'button1', 'button2', 'Start', this.startScene.bind(this, 'Game'));
-    // this.creditButton = new UiButton(this, this.scale.width /2, this.scale.height * 0.65, 'button1', 'button2', 'Credits', this.startScene.bind(this, 'Credits'));
-    // this.LeaderButton = new UiButton(this, this.scale.width /2, this.scale.height * 0.65, 'button1', 'button2', 'Score', this.startScene.bind(this, 'Leader'));
+     // = this.add.text(300, 100,  'Monster Attack', );
+    // this.titleText.setOrigin(0.5);
+
+    this.gameButton = new UiButton(this, config.width / 2, config.height / 2 - 100, 'button1', 'button2', 'Play', this.startScene.bind(this, 'Game'));
+
+    this.creditsButton = new UiButton(this, config.width / 2, config.height / 2, 'button1', 'button2', 'Credits', this.startScene.bind(this, 'Credits'));
+
+    this.LeaderButton = new UiButton(this, config.width / 2, config.height / 2 + 100, 'button1', 'button2', 'Scores', this.startScene.bind(this, 'Leader'));
+
   }
 
   startScene(targetScene) {
