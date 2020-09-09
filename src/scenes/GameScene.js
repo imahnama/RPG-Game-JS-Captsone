@@ -58,7 +58,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createGroups() {
-
     this.chests = this.physics.add.group();
 
     this.monsters = this.physics.add.group();
@@ -110,7 +109,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addCollisions() {
-
     this.physics.add.collider(this.player, this.map.blockedLayer);
 
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
@@ -128,13 +126,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   collectChest(player, chest) {
-
     this.goldPickupAudio.play();
     this.events.emit('pickUpChest', chest.id, player.id);
   }
 
   createMap() {
-
     this.map = new Map(this, 'map', 'background', 'background', 'blocked');
   }
 

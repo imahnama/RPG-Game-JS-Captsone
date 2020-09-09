@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import Phaser from 'phaser';
 import fetchData from '../objects/Api';
 import UiButton from '../objects/UiButton';
@@ -7,7 +8,6 @@ export default class LeaderboardScene extends Phaser.Scene {
   constructor() {
     super('Leader');
   }
-
 
 
   create() {
