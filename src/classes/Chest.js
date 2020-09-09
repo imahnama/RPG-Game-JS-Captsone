@@ -1,15 +1,13 @@
-import Phaser from 'phaser';
-
-export default class Chest extends Phaser.Physics.Arcade.Image {
+export default class Chest {
   constructor(scene, x, y, key, frame, coins, id) {
     super(scene, x, y, key, frame);
-    this.scene = scene; // the scene this game object will be added to
-    this.coins = coins; // the amount of coins this chest contains
+    this.scene = scene;
+    this.coins = coins;
     this.id = id;
 
-    // enable Physics
+
     this.scene.physics.world.enable(this);
-    // add the player to our existing scene
+
     this.scene.add.existing(this);
 
     this.setScale(2);

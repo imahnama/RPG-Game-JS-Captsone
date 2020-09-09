@@ -1,5 +1,5 @@
 #phaser-game {
-  position: relative
+  position: relative;
 }
 
 #phaser {
@@ -12,4 +12,17 @@
 
 .hide-div {
   display: none;
+}
+
+#user-name {
+  margin-right: 5px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 40px;
+  height: 40px;
+}
+
+.btn {
+  height: 40px;
+  color: white;
 }

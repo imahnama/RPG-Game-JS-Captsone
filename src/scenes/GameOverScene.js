@@ -42,7 +42,7 @@ export default class GameOverScene extends Phaser.Scene {
 
     const leaderBtn = document.createElement('button');
     leaderBtn.innerHTML = 'View Scores';
-    leaderBtn.setAttribute('class', 'btn btn-secondary');
+    leaderBtn.setAttribute('class', 'btn btn-warning scores');
     divContent.appendChild(leaderBtn);
 
     leaderBtn.addEventListener('click', () => {
