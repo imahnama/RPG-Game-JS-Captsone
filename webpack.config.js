@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-let SRC = path.resolve(__dirname, 'src/main/js');
+const SRC = path.resolve(__dirname, 'src/main/js');
 const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin');
@@ -22,8 +22,8 @@ module.exports = {
       },
       {
         test: /\.(mp3|ogg|wav)$/,
-          loader: 'file-loader',
-    },
+        loader: 'file-loader',
+     },
     ],
   },
 
