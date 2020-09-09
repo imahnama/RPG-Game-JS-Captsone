@@ -1,6 +1,7 @@
-import Phaser from 'phaser'
+/* eslint-disable no-unused-vars */
+import Phaser from 'phaser';
 import UiButton from '../objects/UiButton';
-import config from '../Config/config'
+import config from '../Config/config';
 
 export default class CreditsScene extends Phaser.Scene {
   constructor() {
@@ -8,7 +9,6 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
-
     this.text = this.add.text(250, 40, 'How to play😎', { fontSize: 40 });
 
 
@@ -23,10 +23,9 @@ export default class CreditsScene extends Phaser.Scene {
     this.downText = this.add.text(250, 280, 'Move the player down ⬇️', { fontSize: 24 });
 
     this.menuButton = new UiButton(this, 400, 400, 'button1', 'button2', 'Play', this.startScene.bind(this, 'Game'));
-
   }
 
   startScene(targetScene) {
-   this.scene.start(targetScene);
- }
+    this.scene.start(targetScene);
+  }
 }

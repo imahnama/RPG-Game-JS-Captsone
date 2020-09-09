@@ -1,4 +1,5 @@
-import Phaser from 'phaser'
+/* eslint-disable no-unused-vars */
+import Phaser from 'phaser';
 import ChestModel from './ChestModel';
 import MonsterModel from './MonsterModel';
 import { SpawnerType, randomNumber } from './utils';
@@ -53,7 +54,7 @@ export default class Spawner {
       randomNumber(0, 20),
       randomNumber(3, 5),
       1,
-      );
+    );
     this.objectsCreated.push(monster);
     this.addObject(monster.id, monster);
   }

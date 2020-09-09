@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
-import GameOverScene from '../scenes/GameOverScene'
 import { v4 as uuidv4 } from 'uuid';
+import GameOverScene from '../scenes/GameOverScene';
 
 export default class PlayerModel {
   constructor(spawnLocations) {
@@ -16,8 +17,8 @@ export default class PlayerModel {
 
   updateGold(gold) {
     this.gold += gold;
-    let gameOverSceneInstance = new GameOverScene();
-    gameOverSceneInstance.getGold(this.gold)
+    const gameOverSceneInstance = new GameOverScene();
+    gameOverSceneInstance.getGold(this.gold);
   }
 
   updateHealth(health) {

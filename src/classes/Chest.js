@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 export default class Chest extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key, frame, coins, id) {
     super(scene, x, y, key, frame);
-    this.scene = scene; //the scene this game object will be added to
+    this.scene = scene; // the scene this game object will be added to
     this.coins = coins; // the amount of coins this chest contains
     this.id = id;
 
@@ -13,7 +13,6 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.scene.add.existing(this);
 
     this.setScale(2);
-
   }
 
   makeActive() {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
 import GameScene from '../scenes/GameScene';
 import BootScene from '../scenes/BootScene';

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
 import PlayerContainer from '../classes/player/PlayerContainer';
 import Chest from '../classes/Chest';
@@ -193,7 +195,6 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.events.on('respawnPlayer', (playerObject) => {
-
       this.playerDeathAudio.play();
       this.scene.switch('GameOver');
       this.scene.stop('Ui');

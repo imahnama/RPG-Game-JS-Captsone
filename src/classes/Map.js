@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 
 export default class Map {
   constructor(scene, key, tileSetName, bgLayerName, blockedLayerName) {
@@ -12,7 +11,6 @@ export default class Map {
   }
 
   createMap() {
-
     this.map = this.scene.make.tilemap({ key: this.key });
 
 
@@ -30,7 +28,12 @@ export default class Map {
     this.scene.physics.world.bounds.width = this.map.widthInPixels * 2;
     this.scene.physics.world.bounds.height = this.map.heightInPixels * 2;
 
-    
-    this.scene.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
+
+    this.scene.cameras.main.setBounds(
+      0,
+      0,
+      this.map.widthInPixels * 2,
+      this.map.heightInPixels * 2,
+    );
   }
 }

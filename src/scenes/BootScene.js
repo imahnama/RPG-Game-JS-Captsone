@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable padded-blocks */
+
 import Phaser from 'phaser';
 
 import items from '../../assets/images/items.png';

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const fetchData = (() => {
   const api = {
@@ -9,7 +9,6 @@ const fetchData = (() => {
   const url = `${api.baseurl}${api.key}/scores/`;
 
   const saveScore = (user, score = 0) => {
-    console.log(user, score)
     const details = { user, score };
     return axios.post(url, details).then(response => response.data);
   };
