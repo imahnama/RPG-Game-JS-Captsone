@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import Phaser from 'phaser';
+// import Phaser from 'phaser';
 import { v4 as uuidv4 } from 'uuid';
 import GameOverScene from '../scenes/GameOverScene';
 
