@@ -10,10 +10,6 @@
   grid-template-columns: auto auto;
 }
 
-.hide-div {
-  display: none;
-}
-
 #user-name {
   margin-right: 5px;
   border-radius: 5px;
@@ -25,4 +21,10 @@
 .btn {
   height: 40px;
   color: white;
+}
+
+.scores {
+  position: absolute;
+  top: 400px;
+  left: 300px;
 }
