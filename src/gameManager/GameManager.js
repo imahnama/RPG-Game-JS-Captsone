@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable import/no-cycle */
 import Phaser from 'phaser';
 import Spawner from './Spawner';
 import { SpawnerType, randomNumber } from './utils';

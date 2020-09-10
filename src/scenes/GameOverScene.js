@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable import/no-cycle */
 import Phaser from 'phaser';
 import fetchData from '../objects/Api';
 import UiButton from '../objects/UiButton';
@@ -41,7 +42,6 @@ export default class GameOverScene extends Phaser.Scene {
       document.getElementById('user-name').remove();
       document.querySelector('.btn-submit').remove();
       fetchData.saveScore(name, result);
-
     });
 
     const leaderBtn = document.createElement('button');
@@ -55,5 +55,4 @@ export default class GameOverScene extends Phaser.Scene {
       this.scene.stop('GameOver');
     });
   }
-
 }
