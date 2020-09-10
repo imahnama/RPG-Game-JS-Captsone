@@ -38,6 +38,8 @@ export default class GameOverScene extends Phaser.Scene {
 
     submitBtn.addEventListener('click', () => {
       const name = document.getElementById('user-name').value;
+      document.getElementById('user-name').remove();
+      document.querySelector('.btn-submit').remove();
       fetchData.saveScore(name, result);
 
     });
@@ -45,11 +47,9 @@ export default class GameOverScene extends Phaser.Scene {
     const leaderBtn = document.createElement('button');
     leaderBtn.innerHTML = 'View Scores';
     leaderBtn.setAttribute('class', 'btn btn-warning scores');
-      document.getElementById('phaser-game').appendChild(leaderBtn);
+    document.getElementById('phaser-game').appendChild(leaderBtn);
 
     leaderBtn.addEventListener('click', () => {
-      document.getElementById('user-name').remove();
-      document.querySelector('.btn-submit').remove();
       document.querySelector('.scores').remove();
       this.scene.switch('Leader');
       this.scene.stop('GameOver');
